@@ -1,5 +1,5 @@
 # 🧠 Origin Take-Home Assignment — Therapist Session Dashboard
-**Stack:** TypeScript · Next.js 14+ (App Router) · REST API · Postgres (Neon) · TailwindCSS  
+**Stack:** TypeScript · Next.js 15+ (App Router) · REST API · Postgres (Neon) · TailwindCSS  
 
 ---
 
