@@ -1,5 +1,5 @@
 # 🧠 Origin Take-Home Assignment — Therapist Session Dashboard
-**Stack:** TypeScript · Next.js 15+ (App Router) · REST API · Postgres (Neon) · TailwindCSS  
+**Stack:** TypeScript · Next.js 15+ (App Router) · React 19 · REST API · Postgres (Neon) · TailwindCSS  
 
 ---
 
@@ -7,9 +7,9 @@
 Welcome 👋 — and thanks for taking the time to complete Origin Therapy’s take-home challenge.  
 This exercise mirrors real full-stack work at **Origin**: connecting clean backend APIs to polished, type-safe UIs.
 
-You’ll build a small **Therapist Session Dashboard** using **Next.js**, **TypeScript**, and a provided **Neon Postgres** database.
+You’ll build a small **Therapist Session Dashboard** using **Next.js 15+**, **TypeScript**, **React 19** and a provided **Neon Postgres** database.
 
-This assignment is scoped for about **a few hours** of work for someone comfortable with these tools.  
+This assignment is scoped for about **5–6 hours** of focused work for someone comfortable with these tools.  
 Feel free to use **AI coding assistants** (Cursor, Copilot, Claude, etc.) — we care most about structure, clarity, and UX judgment.
 
 ---
@@ -45,34 +45,55 @@ You can safely modify session data (no schema changes).
 
 ### 1️⃣ Backend (REST API)
 - Connect to the provided **Postgres** database.  
-- Implement at least these endpoints:
-  - Get all sessions → returns all sessions (joined with therapist + patient names)
-  - Update a session satus → updates a session’s `status` (e.g. “Completed”)
-  - Create a new session → add a new session to the existing sessions
-  - Delete a session → delete a session by id
-- Use **TypeScript** throughout.  
-- Handle validation and errors gracefully (`400 / 404 / 500`).  
-- Use either **pg**, **Drizzle**, or **Prisma** for DB access.
+- Design and implement a **RESTful API** (TypeScript; **pg**, **Drizzle**, or **Prisma**) for these capabilities:
+
+| Capability | Details |
+|------------|---------|
+| List sessions | Join with therapist + patient names; support **server-side** filtering (at least `status`, ideally `therapist`) and **pagination** |
+| Create session | Add a new session |
+| Update session | Update fields (e.g., status change) |
+| Delete session | Remove a session |
+| List therapists | For dropdown/select UI |
+| List patients | For dropdown/select UI |
+
+- **Your design decisions** (1-2 paragraphs in your README): URL structure and HTTP methods, query parameter conventions, response envelope, error format.  
+- **Validation**: Use **Zod** (or similar) to validate request bodies; return `400` with descriptive errors.  
+- **Error handling**: Return appropriate HTTP status codes (`201 / 400 / 404 / 500`) with a consistent error response shape.  
+- **Query efficiency**: Join therapist/patient names efficiently; avoid N+1 queries.  
+
+**Example error response envelope**
+```json
+{ "error": { "code": "VALIDATION_ERROR", "message": "Invalid status value" } }
+```
 
 ---
 
 ### 2️⃣ Frontend (UI)
 - Display sessions in a responsive table or card layout.  
 - Show therapist name, patient name, date/time, and status.  
-- Update session status using the REST API.  
-- Add a new session.
-- Delete an existing session. 
-- Include **loading**, **error**, and **empty** states.  
+- **Filtering**: Filter by therapist and status.  
+- **Pagination**: Implement pagination that works with the backend.  
+- **CRUD operations**: Create, update status, and delete sessions.  
+- **Loading & error states**: Include loading, error, and empty states.  
+- **Modern React**: Use **React Suspense** for data loading (e.g., sessions list) with a fallback; keep components lean and organized.  
 - Style with **TailwindCSS** — clean and readable.
+
+### 3️⃣ Bonus (pick any)
+- Server-side: add rate limiting or request logging middleware.  
+- Server-side: add a `/api/sessions/stats` endpoint (e.g., sessions per therapist, completion rate).  
+- Server-side: add date-range filtering or sorting for sessions.  
+- Frontend: URL-synced filters/search/sort so the view is shareable/bookmarkable.  
+- Frontend: optimistic updates with rollback on failure for status changes.  
+- Frontend: virtualized table for large datasets.  
+- Frontend: toast/notification system for CRUD feedback.  
+- DevOps: add basic API tests (Jest/Vitest).  
+- Explain: in README, describe how you’d add authentication.
 
 ---
 
-### 3️⃣ Others
+### 4️⃣ Deployment & Notes
 - Deploy to [Vercel](https://vercel.com) or [Render](https://render.com).  
-- Add search / filter (e.g. by therapist or status).  
-- Add pagination
-- Add optimistic UI updates (update the UI immediately on click).  
-- Think about errors/edge cases/security/auth/scalibility. If you don't have time to implement them, mention how you would handle them in the README file.
+- Think about errors/edge cases/security/auth/scalability. If you don't have time to implement them, mention how you would handle them in the README file.
 
 ---
 
@@ -106,6 +127,9 @@ When finished, please send:
    - How you approached the problem  
    - Any trade-offs or assumptions  
    - What you’d improve with more time  
+   - Your API design (URLs/methods, filtering, pagination, response/error formats)  
+   - How you structured queries and handled validation  
+   - Frontend architecture decisions (state management, component organization)
 3. *(Optional)* A 2–3 minute Loom or screen recording showing your app.
 
 Email your submission to **ni@joinoriginspeech.com**.
@@ -113,8 +137,9 @@ Email your submission to **ni@joinoriginspeech.com**.
 ---
 
 ## 🗓 Timeline
-Please submit within **4 hours** of receiving your database URL.  
-Need more time? No problem — just ask.
+Please submit within **6 hours** of receiving your database URL.  
+If you’re short on time, prioritize what best shows your strengths; quality over completeness.  
+Remember: a well-executed **70%** is better than a rushed **100%**.
 
 ---
 
@@ -122,14 +147,14 @@ Need more time? No problem — just ask.
 
 | Category | Points | What We Look For |
 |-----------|--------|-----------------|
-| Backend Correctness | 5 | Endpoints work; updates persist |
-| Type Safety / Data Modeling | 5 | Clean TypeScript; no `any` |
-| Frontend Implementation | 5 | Functional UI fetching real data |
-| UX & Visual Polish | 5 | Clear loading/error states |
-| Code Structure & Clarity | 5 | Logical, modular organization |
-| Documentation / Reasoning | 5 | README clarity and setup instructions |
+| Backend API Design | 5 | RESTful resource naming, appropriate methods/status codes, sensible query params, consistent response envelope |
+| Backend Data Layer | 5 | Efficient joins, server-side filtering/pagination (at least status), no N+1 |
+| Input Validation & Errors | 5 | Zod (or similar) schemas, descriptive 400s, graceful error handling |
+| Frontend Implementation | 5 | Functional UI, filters/pagination aligned with backend, clear loading/error/empty states, Suspense (e.g., sessions list) |
+| Code Quality & TypeScript | 5 | Clean types, no `any`, logical file organization, readable code |
+| Documentation / Reasoning | 5 | README clarity on decisions (API design, queries, state, trade-offs) |
 
-✅ *Bonus (+5 pts)* for optimistic UI, scalability, error handling, or elegant UX touches.
+✅ *Bonus (+5 pts)* for stats endpoint, rate limiting, URL sync, optimistic rollback, tests, virtualization, or other thoughtful additions.
 
 ---
 
