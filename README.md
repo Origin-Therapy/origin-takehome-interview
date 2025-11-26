@@ -128,7 +128,8 @@ When finished, please send:
    - Your API design (URLs/methods, filtering, pagination, response/error formats)  
    - How you structured queries and handled validation  
    - Frontend architecture decisions (state management, component organization)
-3. *(Optional)* A 2–3 minute Loom or screen recording showing your app.
+3. Share the [Vercel](https://vercel.com) or [Render](https://render.com) deployment URL.  
+4. *(Optional)* A 2–3 minute Loom or screen recording showing your app.
 
 Email your submission to **ni@joinoriginspeech.com**.
 
