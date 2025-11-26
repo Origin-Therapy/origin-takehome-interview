@@ -91,7 +91,7 @@ You can safely modify session data (no schema changes).
 
 ### 4️⃣ Deployment & Notes
 - Deploy to [Vercel](https://vercel.com) or [Render](https://render.com).  
-- Think about errors/edge cases/security/auth/scalability. If you don't have time to implement them, mention how you would handle them in the README file.
+- Please refer to the Submission section for notes.
 
 ---
 
@@ -124,10 +124,10 @@ When finished, please send:
 2. A short section in your README titled **“Design Choices”** explaining:  
    - How you approached the problem  
    - Any trade-offs or assumptions  
-   - What you’d improve with more time  
    - Your API design (URLs/methods, filtering, pagination, response/error formats)  
    - How you structured queries and handled validation  
    - Frontend architecture decisions (state management, component organization)
+   - Think about errors/edge cases/security/auth/scalability. If you have more time, how you would handle this project in the real world
 3. Share the [Vercel](https://vercel.com) or [Render](https://render.com) deployment URL.  
 4. *(Optional)* A 2–3 minute Loom or screen recording showing your app.
 
