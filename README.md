@@ -51,7 +51,6 @@ You can safely modify session data (no schema changes).
 | List sessions | Join with therapist + patient names; support **server-side** filtering (at least `status`, ideally `therapist`) and **pagination** |
 | Create session | Add a new session |
 | Update session | Update fields (e.g., status change) |
-| Delete session | Remove a session |
 | List therapists | For dropdown/select UI |
 | List patients | For dropdown/select UI |
 
@@ -72,7 +71,7 @@ You can safely modify session data (no schema changes).
 - Show therapist name, patient name, date/time, and status.  
 - **Filtering**: Filter by therapist and status.  
 - **Pagination**: Implement pagination that works with the backend.  
-- **CRUD operations**: Create, update status, and delete sessions.  
+- **Operations**: Create sessions and update status.  
 - **Loading & error states**: Include loading, error, and empty states.  
 - **Modern React**: Use **React Suspense** for data loading (e.g., sessions list) with a fallback; keep components lean and organized.  
 - Style with **TailwindCSS** — clean and readable.
