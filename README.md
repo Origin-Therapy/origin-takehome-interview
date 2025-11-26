@@ -9,7 +9,6 @@ This exercise mirrors real full-stack work at **Origin**: connecting clean backe
 
 You’ll build a small **Therapist Session Dashboard** using **Next.js 15+**, **TypeScript**, **React 19** and a provided **Neon Postgres** database.
 
-This assignment is scoped for about **5–6 hours** of focused work for someone comfortable with these tools.  
 Feel free to use **AI coding assistants** (Cursor, Copilot, Claude, etc.) — we care most about structure, clarity, and UX judgment.
 
 ---
@@ -78,7 +77,7 @@ You can safely modify session data (no schema changes).
 - **Modern React**: Use **React Suspense** for data loading (e.g., sessions list) with a fallback; keep components lean and organized.  
 - Style with **TailwindCSS** — clean and readable.
 
-### 3️⃣ Bonus (pick any)
+### 3️⃣ Bonus (Optional)
 - Server-side: add rate limiting or request logging middleware.  
 - Server-side: add a `/api/sessions/stats` endpoint (e.g., sessions per therapist, completion rate).  
 - Server-side: add date-range filtering or sorting for sessions.  
