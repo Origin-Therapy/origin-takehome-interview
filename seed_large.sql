@@ -81,29 +81,33 @@ WITH
   ),
   patient_ids AS (
     SELECT array_agg(id) AS ids FROM inserted_patients
+  ),
+  session_dates AS (
+    SELECT
+      (CURRENT_DATE - 30 + floor(random() * 120)::int)
+        + (INTERVAL '8 hours' + (floor(random() * 10)::int * INTERVAL '1 hour'))
+        + (CASE floor(random() * 4)::int
+             WHEN 0 THEN INTERVAL '0 minutes'
+             WHEN 1 THEN INTERVAL '15 minutes'
+             WHEN 2 THEN INTERVAL '30 minutes'
+             ELSE INTERVAL '45 minutes'
+           END) AS session_date
+    FROM generate_series(1, 1500)
   )
 INSERT INTO sessions (therapist_id, patient_id, date, status)
 SELECT
-  (SELECT ids[(1 + floor(random() * array_length(ids, 1))::int)] FROM therapist_ids),
-  (SELECT ids[(1 + floor(random() * array_length(ids, 1))::int)] FROM patient_ids),
-  session_date,
+  t.ids[1 + floor(random() * array_length(t.ids, 1))::int],
+  p.ids[1 + floor(random() * array_length(p.ids, 1))::int],
+  d.session_date,
   CASE 
-    WHEN session_date < CURRENT_DATE THEN
+    WHEN d.session_date < CURRENT_DATE THEN
       -- Past sessions: mostly completed, some canceled/no show
       (ARRAY['Completed','Completed','Completed','Completed','Completed','Completed','Completed','Canceled','No Show','No Show'])[1 + floor(random() * 10)::int]
     ELSE
       -- Future sessions: mostly scheduled, few canceled
       (ARRAY['Scheduled','Scheduled','Scheduled','Scheduled','Scheduled','Scheduled','Scheduled','Scheduled','Scheduled','Canceled'])[1 + floor(random() * 10)::int]
   END
-FROM (
-  SELECT
-    (CURRENT_DATE - 30 + floor(random() * 120)::int)
-      + (INTERVAL '8 hours' + (floor(random() * 10)::int * INTERVAL '1 hour'))
-      + (CASE floor(random() * 4)::int
-           WHEN 0 THEN INTERVAL '0 minutes'
-           WHEN 1 THEN INTERVAL '15 minutes'
-           WHEN 2 THEN INTERVAL '30 minutes'
-           ELSE INTERVAL '45 minutes'
-         END) AS session_date
-  FROM generate_series(1, 1500)
-) AS dates;
+-- Cross join keeps random() volatile per session row so IDs aren't reused
+FROM session_dates d
+CROSS JOIN therapist_ids t
+CROSS JOIN patient_ids p;

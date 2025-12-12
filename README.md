@@ -51,8 +51,6 @@ You can safely modify session data (no schema changes).
 | List sessions | Join with therapist + patient names; support **server-side** filtering (at least `status`, ideally `therapist`) and **pagination** |
 | Create session | Add a new session |
 | Update session | Update fields (e.g., status change) |
-| List therapists | For dropdown/select UI |
-| List patients | For dropdown/select UI |
 
 - **Your design decisions** (1-2 paragraphs in your README): URL structure and HTTP methods, query parameter conventions, response envelope, error format.  
 - **Validation**: Use **Zod** (or similar) to validate request bodies; return `400` with descriptive errors.  
